@@ -1,3 +1,5 @@
+# Alter groundtruth tif for teaching model
+
 #%%
 import numpy as np
 import tifffile as tiff
