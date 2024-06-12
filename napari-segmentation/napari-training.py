@@ -61,3 +61,107 @@ centroids = np.array([r.centroid for r in regions])
 print(centroids.shape)
 
 # %%
+###FOR RAW
+#Make sure the source and target images are inn separate folders because they have to be named inn the same way
+
+import os
+
+# Directory containing the files
+directory = '/Users/nadine/Documents/paper/Naomi-NS-maturation/cLM_EdU-larvae/analysis/output/groundtruth/star-dist-segmentation/Training_dataset/Training-source'
+
+# List to store old and new filenames
+renamed_files = []
+
+# Iterate through the files in the directory
+for filename in os.listdir(directory):
+    if 'raw' in filename and filename.endswith('.tif'):
+        # Replace "raw" with "img" in the filename
+        new_filename = filename.replace('raw', 'img')
+        # Construct the full paths for the old and new filenames
+        old_filepath = os.path.join(directory, filename)
+        new_filepath = os.path.join(directory, new_filename)
+        # Rename the file
+        os.rename(old_filepath, new_filepath)
+        print(f"Renamed {filename} to {new_filename}")
+        # Save old and new filenames
+        renamed_files.append((filename, new_filename))
+
+# Save the list of renamed files to a text file
+with open('renamed_files.txt', 'w') as f:
+    for old, new in renamed_files:
+        f.write(f"{old} -> {new}\n")
+
+print("Renamed files saved to renamed_files.txt")
+
+
+# %%
+###FOR MASK
+#Make sure the source and target images are inn separate folders because they have to be named inn the same way
+
+import os
+
+# Directory containing the files
+directory = '/Users/nadine/Documents/paper/Naomi-NS-maturation/cLM_EdU-larvae/analysis/output/groundtruth/star-dist-segmentation/Training_dataset/Training-target'
+
+# List to store old and new filenames
+renamed_files = []
+
+# Iterate through the files in the directory
+for filename in os.listdir(directory):
+    if 'mask' in filename and filename.endswith('.tif'):
+        # Replace "raw" with "img" in the filename
+        new_filename = filename.replace('mask', 'img')
+        # Construct the full paths for the old and new filenames
+        old_filepath = os.path.join(directory, filename)
+        new_filepath = os.path.join(directory, new_filename)
+        # Rename the file
+        os.rename(old_filepath, new_filepath)
+        print(f"Renamed {filename} to {new_filename}")
+        # Save old and new filenames
+        renamed_files.append((filename, new_filename))
+
+# Save the list of renamed files to a text file
+with open('renamed_files.txt', 'w') as f:
+    for old, new in renamed_files:
+        f.write(f"{old} -> {new}\n")
+
+print("Renamed files saved to renamed_files.txt")
+# %%
+#Rename files
+import os
+import re
+
+# Directory containing the files
+#directory = '/Users/nadine/Documents/paper/Naomi-NS-maturation/cLM_EdU-larvae/analysis/output/groundtruth/star-dist-segmentation/Training_dataset/Training-source'
+directory = '/Users/nadine/Documents/paper/Naomi-NS-maturation/cLM_EdU-larvae/analysis/output/groundtruth/star-dist-segmentation/Training_dataset/Training-target'
+
+
+# Pattern to match filenames with 'img_' followed by three or four digits, followed by an underscore and more text
+pattern = re.compile(r'(img_\d{3,4})_.*\.tif')
+
+# List to store old and new filenames
+renamed_files = []
+
+# Iterate through the files in the directory
+for filename in os.listdir(directory):
+    if filename.endswith('.tif'):
+        match = pattern.match(filename)
+        if match:
+            # New filename retains only 'img_' followed by the three or four digit number
+            new_filename = match.group(1) + '.tif'
+            old_filepath = os.path.join(directory, filename)
+            new_filepath = os.path.join(directory, new_filename)
+            # Rename the file
+            os.rename(old_filepath, new_filepath)
+            print(f"Renamed {filename} to {new_filename}")
+            # Save old and new filenames
+            renamed_files.append((filename, new_filename))
+
+# Save the list of renamed files to a text file
+with open('renamed_files.txt', 'w') as f:
+    for old, new in renamed_files:
+        f.write(f"{old} -> {new}\n")
+
+print("Renamed files saved to renamed_files.txt")
+
+# %%
